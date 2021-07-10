@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sass_processor',
     'privateCommunity',
+    'accounts.apps.AccountsConfig',
 ]
 
 SASS_PROCESSOR_ENABLED =  True
