@@ -13,7 +13,7 @@ class Profile(models.Model):
     major = models.CharField(max_length=20, blank=True, null=True)
     batch = models.SmallIntegerField(blank = True, null = True)
     tel = models.CharField(max_length=15, blank=True, null=True)
-    email = models.CharField(blank=True, null=True)
+    email = models.CharField(max_length=50, blank=True, null=True)
     tmi = models.TextField()
     github_id = models.CharField(max_length = 30)
 

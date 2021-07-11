@@ -21,5 +21,6 @@ from django.conf.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', privateCommunity.views.home, name='home'),
-    path('community/', include('privateCommunity.urls')), 
+    path('community/', include('privateCommunity.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
