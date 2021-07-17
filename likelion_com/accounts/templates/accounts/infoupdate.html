@@ -1,0 +1,40 @@
+<h1> My info! </h1>
+<form method="POST" action="{%url 'infoupdate' %}">
+    {% csrf_token %}
+    재학중인 학교:
+    <br>
+    <input name="college" type="text" value={{ user.profile.college }}>
+    <br>
+    <br>
+    전공:
+    <br>
+    <input name="major" type="text" value="{{ user.profile.major }}">
+    <br>
+    <br>
+    기수:
+    <br>
+    <input name="batch" type="number" value="{{ user.profile.batch }}">
+    <br>
+    <br>
+    전화번호:
+    <br>
+    <input name="tel" type="number" value="{{ user.profile.tel }}">
+    <br>
+    <br>
+    이메일:
+    <br>
+    <input name="email" type="text" value="{{ user.profile.email }}">
+    <br>
+    <br>
+    TMI:
+    <br>
+    <input name="tmi" type="text" value="{{ user.profile.tmi }}">
+    <br>
+    <br>
+    github 아이디:
+    <br>
+    <input name="github_id" type="text" value="{{ user.profile.github_id }}">
+    <br>
+    <br>
+    <input type="submit" value="변경하기">
+</form>

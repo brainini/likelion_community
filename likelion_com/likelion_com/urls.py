@@ -16,11 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import privateCommunity.views
+import accounts.views
 from django.conf.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', privateCommunity.views.home, name='home'),
     path('community/', include('privateCommunity.urls')),
-    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', accounts.views.signup, name='signup'),
+    path('accounts/infoupdate/', accounts.views.infoupdate, name='infoupdate'),
 ]
