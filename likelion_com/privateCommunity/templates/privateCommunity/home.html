@@ -1,22 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <title>SnuLion Community Begins</title>
-  </head>
-  <body>
-    <header>
-      <div style="text-align: right;">
-        {% if user.is_authenticated %} 
-             {{ user.get_username }}님, 안녕하세요
-             <a href="{% url 'infoupdate' %}">정보수정</a> 
-             <a href="{% url 'logout' %}">로그아웃</a> 
-        {% else %} 
-             <a href="{% url 'signup' %}">회원가입</a>
-             <a href="{% url 'login' %}">로그인</a> 
-        {% endif %} 
-      </div>
-    </header>
-    <h1>Hello World!</h1>
-  </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<body>
+  <h1>Hi</h1>
+</body>
+{% endblock content %}

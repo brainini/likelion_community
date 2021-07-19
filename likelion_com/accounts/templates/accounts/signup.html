@@ -1,5 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load sass_tags %}
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'accounts/scss/signup.scss' %}" />
+    <title>Sign up | Snulion </title>
+</head>
+
+<body>
+
 <h1> Sign Up! </h1>
-<form method="POST" action="{%url 'signup' %}">
+<form id="signup-form" method="POST" action="{%url 'signup' %}">
     {% csrf_token %}
     사용자 이름:
     <br>
@@ -53,3 +70,19 @@
     <br>
     <input type="submit" value="Sign Up!">
 </form>
+
+<div id="signup-error-modal">
+    <div class="modal-header">
+        <div class="modal-title">비밀번호 오류</div>
+        <button class="close-button">x</button>
+    </div>
+    <div class="modal-content">
+        비밀번호와 비밀번호 확인이 다르네요! 확인해주세용
+    </div>
+</div>
+
+<script type="module" src="{% static 'accounts/js/signup.js' %}"></script>
+
+</body>
+
+</html>
