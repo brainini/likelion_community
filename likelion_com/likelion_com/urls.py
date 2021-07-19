@@ -17,7 +17,11 @@ from django.contrib import admin
 from django.urls import path
 import privateCommunity.views
 import accounts.views
+from guestbook import views as guestbook_views
+#import guestbook.views as guestbook_views
 from django.conf.urls import include
+from privateCommunity import views
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -28,4 +32,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup/', accounts.views.signup, name='signup'),
     path('accounts/infoupdate/', accounts.views.infoupdate, name='infoupdate'),
+    path('guestbook/', include('guestbook.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

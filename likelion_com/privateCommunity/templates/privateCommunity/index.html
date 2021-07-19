@@ -1,0 +1,10 @@
+
+  <h1>new post</h1>
+  <form action="{% url 'privateCommunity:board_notice' %}" method="POST">
+    {% csrf_token %}
+    <p>title</p>
+    <input name="title" /> <br />
+    <p>content</p>
+    <textarea name="content" rows="30" cols="50"></textarea> <br />
+    <input type="submit" value="submit" />
+  </form>
