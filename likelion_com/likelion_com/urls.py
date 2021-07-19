@@ -17,10 +17,15 @@ from django.contrib import admin
 from django.urls import path
 import privateCommunity.views
 from django.conf.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', privateCommunity.views.home, name='home'),
     path('community/', include('privateCommunity.urls')),
     path('accounts/', include('accounts.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,20 @@
+footer {
+	.copyright-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 20px;
+		background-color: rgb(253, 216, 245);
+
+		.logo {
+			width: 30px;
+			height: 30px;
+			margin-right: 10px;
+		}
+
+		.copyright {
+			font-size: 16px;
+			font-weight: bold;
+		}
+	}
+}
