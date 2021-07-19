@@ -16,11 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import privateCommunity.views
+from guestbook import views as guestbook_views
+#import guestbook.views as guestbook_views
 from django.conf.urls import include
+from privateCommunity import views
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', privateCommunity.views.home, name='home'),
     path('community/', include('privateCommunity.urls')),
     path('accounts/', include('accounts.urls')),
+    path('guestbook/', include('guestbook.urls')),
 ]
+
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

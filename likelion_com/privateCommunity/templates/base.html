@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>likelion_community</title>
+</head>
+
+
+<div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Snulion Community</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_notice' %}">공지게시판</a>
+        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_announce' %}">공고게시판</a>
+        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_qna' %}">질의응답게시판</a>
+        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_apply' %}">모집게시판</a>
+        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_free' %}">자유게시판</a>
+        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_info' %}">정보게시판</a>
+        <a class="mdl-navigation__link" href="{% url 'guestbook:list' %}">방명록</a>
+      </nav>
+</div>
+
+<h1 class="post-main-title">
+
+  <a href="/community/new/">
+    글 작성하기
+  </a>
+</h1>
+
+{% block content %}
+{% endblock content %}
+
+</html>

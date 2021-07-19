@@ -7,10 +7,10 @@ class Post(models.Model): # 모델 클래스명은 단수형을 사용 (Posts(x)
     author = models.ForeignKey(User, null=True, on_delete= models.CASCADE)
     title = models.CharField(max_length=256)
     category = models.CharField(max_length=256)
-    content = models.TextField()
+    content = models.CharField(max_length=256, blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(blank=True, null=True)
-    view_count = models.IntegerField()
+    view_count = models.IntegerField(blank=True, null=True)
     emotion_users = models.ManyToManyField(User, blank=True, related_name='emotion_posts', through='Emotion')
 
     def update_date(self): # 나중에 수정할 때 사용
@@ -40,7 +40,7 @@ class Emotion(models.Model):
     type = models.CharField(max_length= 20)
     created_at = models.DateTimeField(default=timezone.now)
 
-class commentEmotion(models.Model):
+class commentEmotion(models.Model):  
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Comment, on_delete=models.CASCADE)
     type = models.CharField(max_length= 20)
