@@ -3,8 +3,20 @@
   <head>
     <meta charset='utf-8'>
     <title>SnuLion Community Begins</title>
+    {% load static %}
+
+    {% load sass_tags %}
+    <link rel="stylesheet" type="text/css" href="{% sass_src 'privateCommunity/scss/base.scss' %}">
+    {% block style %}
+    {% endblock style %}
+    <script type="module" src="{% static 'privateCommunity/js/base.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+	<script src="{% static 'privateCommunity/js/base2.js' %}"></script>
+    {% block js %}
+    {% endblock js %}
   </head>
   <body>
+    <script src="{% static 'privateCommunity/js/show.js' %}"></script>
     <header>
       <div style="text-align: right;">
         {% if user.is_authenticated %} 
@@ -17,30 +29,34 @@
         {% endif %} 
       </div>
     </header>
+    <main>
+        <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Snulion Community</span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_notice' %}">공지게시판</a>
+            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_announce' %}">공고게시판</a>
+            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_qna' %}">질의응답게시판</a>
+            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_apply' %}">모집게시판</a>
+            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_free' %}">자유게시판</a>
+            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_info' %}">정보게시판</a>
+            <a class="mdl-navigation__link" href="{% url 'guestbook:list' %}">방명록</a>
+        </nav>
+        </div>
 
-    <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title">Snulion Community</span>
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_notice' %}">공지게시판</a>
-        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_announce' %}">공고게시판</a>
-        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_qna' %}">질의응답게시판</a>
-        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_apply' %}">모집게시판</a>
-        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_free' %}">자유게시판</a>
-        <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_info' %}">정보게시판</a>
-        <a class="mdl-navigation__link" href="{% url 'guestbook:list' %}">방명록</a>
-      </nav>
-    </div>
+        <h1 class="post-main-title">
 
-    <h1 class="post-main-title">
-
-        <a href="/community/new/">
-            글 작성하기
-        </a>
-    </h1>
-    <h1>Hello World!</h1>
+            <a href="/community/new/">
+                글 작성하기
+            </a>
+        </h1>
+        {% block content %}
+        {% endblock content %}
+    </main>
+    <footer>
+        <div class="copyright-container">
+            <img class="logo" src="{% static 'privateCommunity/img/likelion_white_logo.png' %}">
+            <span id="copyright-text" class="copyright">SNU LIKELION © 2021</span>
+        </div>
+    </footer>
   </body>
-
-{% block content %}
-{% endblock content %}
-
 </html>

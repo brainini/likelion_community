@@ -45,8 +45,30 @@ INSTALLED_APPS = [
     'django.forms',
     'guestbook.apps.GuestbookConfig',
     'mathfilters',
+    'ckeditor',
+    'ckeditor_uploader',
+    'django.forms',
 ]
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
+SASS_PROCESSOR_ENABLED =  True
+SASS_PROCESSOR_ROOT =  os.path.join(BASE_DIR, 'privateCommunity', 'static')
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': (
+            ['Styles', 'Format', 'FontSize'],
+            ['CodeSnippet', 'Link', 'Image', 'Table', 'HorizontalRule'],
+            ['NumberedList', 'BulletedList'],
+            ['Outdent', 'Indent', 'Blockquote'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'], ['Source'],
+            ['Bold', 'Italic', 'Underline', 'Strike'],
+            ['TextColor', 'BGColor', 'SpecialChar'],
+            ),
+        'extraPlugins': 'codesnippet',
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,6 +157,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'accounts', 'static'),
     os.path.join(BASE_DIR, 'privateCommunity', 'static'),
@@ -149,3 +172,5 @@ LOGIN_REDIRECT_URL = "/community/"
 LOGOUT_REDIRECT_URL = "/community/"
 
 SITE_ID = 1
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media/'

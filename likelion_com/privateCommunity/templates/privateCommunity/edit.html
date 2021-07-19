@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>edit post</h1>
+
+    <div class = "container">
+      <form method="POST" action="{% url 'privateCommunity:edit' post.id%}" enctype="multipart/form-data" >
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <button type="submit">저장</button>
+      </form>
+    </div>
+    
+{% endblock content %}
