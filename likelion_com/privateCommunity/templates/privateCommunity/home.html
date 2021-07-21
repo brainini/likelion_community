@@ -3,7 +3,9 @@
 {% block content %}
 
   <h1>POSTS</h1>
+  {% if user.is_authenticated %}
   <a href="{% url 'privateCommunity:new' %}">new post</a>
+  {% endif %}
   {% for post in posts %}
     <div style="border: 1px solid grey;">
       <a href="{% url 'privateCommunity:show' post.id %}">

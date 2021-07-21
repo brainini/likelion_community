@@ -4,12 +4,29 @@
 
     <div>
       <a href="{% url 'privateCommunity:home' %}">home</a>
-      <p>{{post.category}}</p>
+      <p>분류: {{post.category}}</p>
       <h1>제목: {{ post.title }}</h1>
       <p> 생성 시간: {{post.created_at}} <br> 조회수: {{post.view_count}} </p>
-      <a href="{% url 'privateCommunity:edit' post.id %}">수정  </a>
-      <a href="{% url 'privateCommunity:delete' post.id %}">삭제</a>
+      {% if request.user == post.author %}   
+        <a href="{% url 'privateCommunity:edit' post.id %}">수정  </a>
+        <a href="{% url 'privateCommunity:delete' post.id %}">삭제</a>
+      {% endif %}
+      
       <p style="width: 70%;">{{ post.content | safe}}</p>
+    </div>
+    <div id="post-emotion-container">
+      <a onclick="onClickPostBestButton({{post.id}})" id="post-best-button">
+        최고에요 {{post.emotion_users.count}}
+      </a>
+      <a onclick="onClickPostThanksButton({{post.id}})" id="post-thanks-button">
+        감사해요 {{post.emotion_users.count}}
+      </a>
+      <a onclick="onClickPostSurprisingButton({{post.id}})" id="post-surprising-button">
+        놀라워요 {{post.emotion_users.count}}
+      </a>
+      <a onclick="onClickPostFunnyButton({{post.id}})" id="post-funny-button">
+        웃겨요 {{post.emotion_users.count}}
+      </a>
     </div>
 
     <p id="comment-count"><strong>댓글이 {{post.comment_set.all.count}}개 있습니다 </strong><p>

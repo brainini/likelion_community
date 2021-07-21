@@ -18,8 +18,8 @@ urlpatterns = [
     path('posts/<int:id>/comments/<int:cid>/', views.ReCommentView.create, name='recomment_create'),
     path('posts/<int:id>/comments/<int:cid>/delete', views.CommentView.delete, name='comment_delete'),
     path('posts/<int:id>/comments/<int:cid>/delete/<int:rcid>', views.ReCommentView.delete, name='recomment_delete'),
-    path('posts/<int:id>/emotion/<str:type>', views.EmotionView.create, name='emotion'),
+    path('posts/<int:id>/emotion/<str:type>', views.EmotionView.create, name='postEmotion'),
     path('posts/<int:id>/comments/<int:cid>/commentEmotion/<str:type>', views.CommentEmotionView.create, name='commentEmotion'),
-    path('posts/<int:id>/comments/<int:cid>/<int:rcid>/reCommentEmotion/<str:type>', views.CommentEmotionView.create, name='commentEmotion'),
+    path('posts/<int:id>/comments/<int:cid>/<int:rcid>/recommentEmotion/<str:type>', views.RecommentEmotionView.create, name='recommentEmotion'),
 ]
 

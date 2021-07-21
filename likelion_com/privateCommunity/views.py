@@ -18,7 +18,7 @@ def home(request):
         post = Post.objects.create(title=title, category=category, content=content, view_count = 0)
         comments = post.comment_set.order_by('created_at')
         emotions = post.emotion_set
-        return render(request, 'privateCommunity/show.html', {'post':post, 'comments':comments, 'emotions':emotions})
+        return redirect('privateCommunity:show', id= post.id)
     else:
         posts = Post.objects.all()
         return render(request, 'privateCommunity/home.html', {'posts': posts})
@@ -49,10 +49,9 @@ def new(request):
 def show(request, id):
 
     post = Post.objects.get(id=id)
+    post.view_count +=1
+    post.save()
     comments = post.comment_set.order_by('created_at')
-    for comment in comments:
-        recomments = comment.recomment_set.order_by('created_at')
-        comment
     emotions = post.emotion_set
     return render(request, 'privateCommunity/show.html', {'post':post, 'comments':comments, 'emotions':emotions})
 
@@ -87,7 +86,7 @@ class CommentView:
         return JsonResponse({
             'commentId': comment.id,
             'author': comment.author.username,
-            'created_at': comment.created_at.strftime("%Y년 %m월 %d일 %H:%M".encode('unicode-escape').decode()).encode().decode('unicode-escape'),
+            'created_at': comment.created_at.strftime("%Y년 %m월 %d일 %-H:%M".encode('unicode-escape').decode()).encode().decode('unicode-escape'),
             'commentCount': Post.objects.get(id=id).comment_set.count()
         })
         
@@ -306,50 +305,45 @@ class EmotionView:
             post.emotion_set.filter(type=type).get(user=request.user).delete()
         else:
             Emotion.objects.create(user=request.user, post=post, type=type)
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        thanks_list = post.emotion_set.filter(type="thanks")
+        best_list = post.emotion_set.filter(type="best")
+        surprising_list = post.emotion_set.filter(type="surprising")
+        funny_list = post.emotion_set.filter(type="funny")
+        return JsonResponse({
+            'postThanksCount': thanks_list.count(),
+            'postBestCount': best_list.count(),
+            'postSurprisingCount': surprising_list.count(),
+            'postFunnyCount': funny_list.count(),
+        })
 
 class CommentEmotionView:
     def create(request, id, cid, type):
-        post = Post.objects.get(id=id)
         comment = Comment.objects.get(id = cid)
         comment_emotion_list = comment.commentEmotion_set.filter(user_id=request.user.id).filter(type=type)
         if comment_emotion_list.count() > 0:
             comment.commentEmotion_set.filter(type=type).get(user=request.user).delete()
         else:
             CommentEmotion.objects.create(user=request.user, comment=comment, type=type)
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        return JsonResponse({
+            'postLikeOfUser': like_list.count(),
+            'postLikeCount': post.like_set.count(),
+            'userLikeCount': request.user.like_posts.count()
+        })
+
+class RecommentEmotionView:
+    def create(request, id, cid, type):
+        comment = Comment.objects.get(id = cid)
+        comment_emotion_list = comment.commentEmotion_set.filter(user_id=request.user.id).filter(type=type)
+        if comment_emotion_list.count() > 0:
+            comment.commentEmotion_set.filter(type=type).get(user=request.user).delete()
+        else:
+            CommentEmotion.objects.create(user=request.user, comment=comment, type=type)
+        return JsonResponse({
+            'postLikeOfUser': like_list.count(),
+            'postLikeCount': post.like_set.count(),
+            'userLikeCount': request.user.like_posts.count()
+        })
 
 
 
 
-
-# class CommentView:
-
-    # def post(self, request):
-    #     try:
-    #         data = json.loads(request.body)
-    #         user = request.user
-
-    #         content           = data.get('content', None)
-    #         posting_id        = data.get('posting_id', None)
-    #         parent_comment_id = data.get('parent_comment_id', None)
-
-    #         if not (content and posting_id):
-    #             return JsonResponse({'message':'KEY_ERROR'}, status=400)
-
-    #         if not Posting.objects.filter(id=posting_id).exists():
-    #             return JsonResponse({'message':'POSTING_DOES_NOT_EXIST'}, status=404)
-            
-    #         posting = Posting.objects.get(id=posting_id)
-
-    #         Comment.objects.create(
-    #             content           = content,
-    #             user              = user,
-    #             posting           = posting,
-    #             parent_comment_id = parent_comment_id
-    #         )
-
-    #         return JsonResponse({'message':'SUCCESS'}, status=201)
-        
-    #     except JSONDecodeError:
-    #         return JsonResponse({'message':'JSON_DECODE_ERROR'}, status=400)

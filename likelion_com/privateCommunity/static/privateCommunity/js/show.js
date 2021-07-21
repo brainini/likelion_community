@@ -65,7 +65,7 @@ const getReCommentElement = (content, postId, recommentId, author, created_at) =
 	
     let newReCommentElement = document.createElement('p');
     newReCommentElement.setAttribute('id',`${recommentId}-recomment`);
-    newReCommentElement.innerHTML = `&nbsp; &nbsp;&nbsp; &nbsp; ㄴ> ${author}: ${content} &nbsp; &nbsp;${created_at} &nbsp;`;
+    newReCommentElement.innerHTML = `&nbsp; &nbsp;&nbsp; &nbsp; ㄴ> ${author}: ${content} &nbsp; &nbsp;${created_at.strftime("%Y년 %m월 %d일 %-H:%M".encode('unicode-escape').decode()).encode().decode('unicode-escape')} &nbsp;`;
     
     // let likeButton = document.createElement('a');
     // likeButton.setAttribute('onclick', `onClickCommentLike(${postId},${commentId})`);
@@ -96,4 +96,28 @@ const onAddReComment = async (postId, commentId) => {
         const commentCount = document.getElementById('comment-count');
         commentCount.innerHTML = `<strong>댓글이 ${response.data.commentCount}개 있습니다</strong>`;
     }
+}
+
+const onClickPostBestButton = async (postId) => {
+    const post_best_button = document.getElementById("post-best-button")
+    const response = await axios.post(`/community/posts/${postId}/emotion/best/`)
+    post_best_button.innerHTML = `최고에요 ${response.data.postBestCount}`
+}
+
+const onClickPostThanksButton = async (postId) => {
+    const post_thanks_button = document.getElementById("post-thanks-button")
+    const response = await axios.post(`/community/posts/${postId}/emotion/thanks/`)
+    post_thanks_button.innerHTML = `감사해요 ${response.data.postThanksCount}`
+}
+
+const onClickPostSurprisingButton = async (postId) => {
+    const post_surprising_button = document.getElementById("post-surprising-button")
+    const response = await axios.post(`/community/posts/${postId}/emotion/surprising/`)
+    post_surprising_button.innerHTML = `놀라워요 ${response.data.postSurprisingCount}`
+}
+
+const onClickPostBestButton = async (postId) => {
+    const post_funny_button = document.getElementById("post-funny-button")
+    const response = await axios.post(`/community/posts/${postId}/emotion/funny/`)
+    post_funny_button.innerHTML = `웃겨요 ${response.data.postFunnyCount}`
 }
