@@ -65,7 +65,7 @@ const getReCommentElement = (content, postId, recommentId, author, created_at) =
 	
     let newReCommentElement = document.createElement('p');
     newReCommentElement.setAttribute('id',`${recommentId}-recomment`);
-    newReCommentElement.innerHTML = `&nbsp; &nbsp;&nbsp; &nbsp; ㄴ> ${author}: ${content} &nbsp; &nbsp;${created_at.strftime("%Y년 %m월 %d일 %-H:%M".encode('unicode-escape').decode()).encode().decode('unicode-escape')} &nbsp;`;
+    newReCommentElement.innerHTML = `&nbsp; &nbsp;&nbsp; &nbsp; ㄴ> ${author}: ${content} &nbsp; &nbsp;${created_at} &nbsp;`;
     
     // let likeButton = document.createElement('a');
     // likeButton.setAttribute('onclick', `onClickCommentLike(${postId},${commentId})`);
