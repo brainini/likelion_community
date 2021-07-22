@@ -2,13 +2,7 @@
 
 {% block content %}
 
-<<<<<<< HEAD
-    <div style="margin-top: 100px;">
-      <p>{{post.category}}
-      {% if post.category == "질의응답게시판" %}
-       #{{post.qna_type}}
-      {% endif %}
-      </p>
+    <div style="margin-top: 150px;">
       <div class="card" style="width:70%;margin-left: auto; margin-right: auto; padding:3%;">
         <div class="card-body">
           <h1 style="font-weight: bold;">{{ post.title }}<br></h1>
@@ -83,7 +77,6 @@
       
     <p id="comment-count"><strong>댓글이 {{commentCount}}개 있습니다 </strong><p>
     {% if user.is_authenticated %}
-    
       {% csrf_token %}
       <input id="comment-input" type="text" name="content" />
       <button onclick="onAddComment({{post.id}})">댓글 달기</button>
