@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.views.generic import ListView
 from django.core.paginator import Paginator
-from .forms import PostForm
+from .forms import PostForm, PostForm2, PostForm_qna
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 
@@ -15,7 +16,7 @@ def home(request):
         title = request.POST['title']
         category = request.POST['category']
         content = request.POST['content']
-        post = Post.objects.create(author=request.user, title=title, category=category, content=content, view_count = 0)
+        post = Post.objects.create(title=title, category=category, content=content, author=request.user, view_count = 0)
         comments = post.comment_set.order_by('created_at')
         emotions = post.emotion_set
         return render(request, 'privateCommunity/show.html', {'post':post, 'comments':comments, 'emotions':emotions})
@@ -28,6 +29,49 @@ def home(request):
         info = Post.objects.filter(category='정보게시판').order_by('-created_at')[0:3]
 
         return render(request, 'privateCommunity/home.html', {'notice':notice, 'announce':announce, 'qna':qna, 'apply':apply, 'free':free, 'info':info})
+
+def noticecreate(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        post = Post.objects.create(title=title, category = "공지게시판", content=content, author=request.user, view_count = 0)
+        return render(request, 'privateCommunity/show.html', {'post':post})
+
+def announcecreate(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        post = Post.objects.create(title=title, category = "공고게시판", content=content, author=request.user, view_count = 0)
+        return render(request, 'privateCommunity/show.html', {'post':post})
+
+def applycreate(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        post = Post.objects.create(title=title, category = "모집게시판", content=content, author=request.user, view_count = 0)
+        return render(request, 'privateCommunity/show.html', {'post':post})
+
+def freecreate(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        post = Post.objects.create(title=title, category = "자유게시판", content=content, author=request.user, view_count = 0)
+        return render(request, 'privateCommunity/show.html', {'post':post})
+
+def infocreate(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        post = Post.objects.create(title=title, category = "정보게시판", content=content, author=request.user, view_count = 0)
+        return render(request, 'privateCommunity/show.html', {'post':post})
+
+def qnacreate(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        qna_type = request.POST['qna_type']
+        post = Post.objects.create(title=title, category = "질의응답게시판", content=content, author=request.user, view_count = 0, qna_type=qna_type)
+        return render(request, 'privateCommunity/show.html', {'post':post})
 
 
 def index(request):
@@ -52,15 +96,59 @@ def new(request):
     }
     return render(request, 'privateCommunity/new.html', context)
 
-def show(request, id):
 
+def new_notice(request):
+    form = PostForm2()
+    context = {
+        "form":form
+    }
+    return render(request, 'privateCommunity/new_notice.html', context)
+
+def new_announce(request):
+    form = PostForm2()
+    context = {
+        "form":form
+    }
+    return render(request, 'privateCommunity/new_announce.html', context)
+
+def new_apply(request):
+    form = PostForm2()
+    context = {
+        "form":form
+    }
+    return render(request, 'privateCommunity/new_apply.html', context)
+
+def new_free(request):
+    form = PostForm2()
+    context = {
+        "form":form
+    }
+    return render(request, 'privateCommunity/new_free.html', context)
+
+def new_info(request):
+    form = PostForm2()
+    context = {
+        "form":form
+    }
+    return render(request, 'privateCommunity/new_info.html', context)
+
+def new_qna(request):
+    form = PostForm_qna()
+    context = {
+        "form":form
+    }
+    return render(request, 'privateCommunity/new_qna.html', context)
+
+
+def show(request, id):
     post = Post.objects.get(id=id)
+    qna_type = Post.objects.get(id=id)
     comments = post.comment_set.order_by('created_at')
     for comment in comments:
         recomments = comment.recomment_set.order_by('created_at')
         comment
     emotions = post.emotion_set
-    return render(request, 'privateCommunity/show.html', {'post':post, 'author':post.author, 'comments':comments, 'emotions':emotions})
+    return render(request, 'privateCommunity/show.html', {'post':post, 'comments':comments, 'qna_type': qna_type, 'emotions':emotions})
 
 
 def delete(request, id):
@@ -106,35 +194,19 @@ class CommentView:
         })
 
 
-class board_NoticeList(ListView):
-    model = Post
-    paginate_by = 10
-    template_name = 'privateCommunity/board_notice.html'
-    context_object_name = 'board_notice'
+def board_NoticeList(request):
+    page = request.GET.get('page', '1')  # 페이지
 
-    def get_queryset(self):
-        board_notice = Post.objects.filter(category='공지게시판').order_by('-id') 
-        return board_notice
+    # 조회
+    board_notice = Post.objects.filter(category='공지게시판').order_by('-id')
 
-    def get_context_data(self, **kwargs):
-        context = super(board_NoticeList, self).get_context_data(**kwargs)
-        paginator = context['paginator']
-        page_numbers_range = 5
-        max_index = len(paginator.page_range)
+    # 페이징처리
+    paginator = Paginator(board_notice, 15)  # 페이지당 10개씩 보여주기
+    page_obj = paginator.get_page(page)
 
-        page = self.request.GET.get('page')
-        current_page = int(page) if page else 1
-
-        start_index = int((current_page - 1) / page_numbers_range) * page_numbers_range
-        end_index = start_index + page_numbers_range
-        if end_index >= max_index:
-            end_index = max_index
-
-        page_range = paginator.page_range[start_index:end_index]
-        context['page_range'] = page_range
-
-        return context
-
+    context = {'board_notice': page_obj}
+    return render(request, 'privateCommunity/board_notice.html', context)
+ 
 
 class board_AnnounceList(ListView):
     model = Post
@@ -174,6 +246,62 @@ class board_QnaList(ListView):
     def get_queryset(self):
         board_qna = Post.objects.filter(category='질의응답게시판').order_by('-id') 
         return board_qna
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        paginator = context['paginator']
+        page_numbers_range = 5
+        max_index = len(paginator.page_range)
+
+        page = self.request.GET.get('page')
+        current_page = int(page) if page else 1
+
+        start_index = int((current_page - 1) / page_numbers_range) * page_numbers_range
+        end_index = start_index + page_numbers_range
+        if end_index >= max_index:
+            end_index = max_index
+
+        page_range = paginator.page_range[start_index:end_index]
+        context['page_range'] = page_range
+
+        return context
+
+class board_QnaList_code(ListView):
+    model = Post
+    paginate_by = 10
+    template_name = 'privateCommunity/board_qna_code.html'
+    context_object_name = 'board_qna_code'
+
+    def get_queryset(self):
+        board_qna_code = Post.objects.filter(category='질의응답게시판').filter(qna_type='코딩/개발').order_by('-id') 
+        return board_qna_code
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        paginator = context['paginator']
+        page_numbers_range = 5
+        max_index = len(paginator.page_range)
+
+        page = self.request.GET.get('page')
+        current_page = int(page) if page else 1
+
+        start_index = int((current_page - 1) / page_numbers_range) * page_numbers_range
+        end_index = start_index + page_numbers_range
+        if end_index >= max_index:
+            end_index = max_index
+
+        page_range = paginator.page_range[start_index:end_index]
+        context['page_range'] = page_range
+
+        return context
+
+class board_QnaList_free(ListView):
+    model = Post
+    paginate_by = 10
+    template_name = 'privateCommunity/board_qna_free.html'
+    context_object_name = 'board_qna_free'
+
+    def get_queryset(self):
+        board_qna_free = Post.objects.filter(category='질의응답게시판').filter(qna_type='자유').order_by('-id') 
+        return board_qna_free
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         paginator = context['paginator']
