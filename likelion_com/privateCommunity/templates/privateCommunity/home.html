@@ -25,14 +25,74 @@
             </a>
           {% endfor %}
         </div>
-        <div class="col-md-6 d-flex">
-
+        <div class="col-md-6 d-flex flex-column border border-info rounded">
+          <h5 class= "border-bottom" style="width: 100%;">
+            <a href="{% url 'privateCommunity:board_announce' %}">공고게시판</a>
+          </h5>
+          {% for post in announce %}
+            <a class="d-flex border-top" href="/community/posts/{{ post.id }}/">
+                <span class="d-flex justify-content-center" style="width: 70%;">{{ post.title }}</span>
+                <span style="width: 20%;">{{ post.author }}</span>
+                <span style="width: 10%;">{{ post.view_count }}</span>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-md-6 d-flex flex-column border border-info rounded">
+          <h5 class= "border-bottom" style="width: 100%;">
+            <a href="{% url 'privateCommunity:board_qna' %}">질의응답게시판</a>
+          </h5>
+          {% for post in qna %}
+            <a class="d-flex border-top" href="/community/posts/{{ post.id }}/">
+                <span class="d-flex justify-content-center" style="width: 70%;">{{ post.title }}</span>
+                <span style="width: 20%;">{{ post.author }}</span>
+                <span style="width: 10%;">{{ post.view_count }}</span>
+            </a>
+          {% endfor %}
+        </div>
+        <div class="col-md-6 d-flex flex-column border border-info rounded">
+          <h5 class= "border-bottom" style="width: 100%;">
+            <a href="{% url 'privateCommunity:board_apply' %}">모집게시판</a>
+          </h5>
+          {% for post in apply %}
+            <a class="d-flex border-top" href="/community/posts/{{ post.id }}/">
+                <span class="d-flex justify-content-center" style="width: 70%;">{{ post.title }}</span>
+                <span style="width: 20%;">{{ post.author }}</span>
+                <span style="width: 10%;">{{ post.view_count }}</span>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-md-6 d-flex flex-column border border-info rounded">
+          <h5 class= "border-bottom" style="width: 100%;">
+            <a href="{% url 'privateCommunity:board_free' %}">자유게시판</a>
+          </h5>
+          {% for post in free %}
+            <a class="d-flex border-top" href="/community/posts/{{ post.id }}/">
+                <span class="d-flex justify-content-center" style="width: 70%;">{{ post.title }}</span>
+                <span style="width: 20%;">{{ post.author }}</span>
+                <span style="width: 10%;">{{ post.view_count }}</span>
+            </a>
+          {% endfor %}
+        </div>
+        <div class="col-md-6 d-flex flex-column border border-info rounded">
+          <h5 class= "border-bottom" style="width: 100%;">
+            <a href="{% url 'privateCommunity:board_info' %}">정보게시판</a>
+          </h5>
+          {% for post in info %}
+            <a class="d-flex border-top" href="/community/posts/{{ post.id }}/">
+                <span class="d-flex justify-content-center" style="width: 70%;">{{ post.title }}</span>
+                <span style="width: 20%;">{{ post.author }}</span>
+                <span style="width: 10%;">{{ post.view_count }}</span>
+            </a>
+          {% endfor %}
         </div>
       </div>
 
       <nav class="blog-pagination" aria-label="Pagination">
-        <a class="btn btn-outline-primary" href="#">Older</a>
-        <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
+        <a class="btn btn-outline-secondary" href="#">Top</a>
       </nav>
 
     </div>
