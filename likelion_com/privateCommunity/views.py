@@ -21,12 +21,12 @@ def home(request):
         emotions = post.emotion_set
         return render(request, 'privateCommunity/show.html', {'post':post, 'comments':comments, 'emotions':emotions})
     else:
-        notice = Post.objects.filter(category='공지게시판').order_by('-created_at')[0:3]
-        announce = Post.objects.filter(category='공고게시판').order_by('-created_at')[0:3]
-        qna = Post.objects.filter(category='질의응답게시판').order_by('-created_at')[0:3]
-        apply = Post.objects.filter(category='모집게시판').order_by('-created_at')[0:3]
-        free = Post.objects.filter(category='자유게시판').order_by('-created_at')[0:3] 
-        info = Post.objects.filter(category='정보게시판').order_by('-created_at')[0:3]
+        notice = Post.objects.filter(category='공지게시판').order_by('-created_at')[0:4]
+        announce = Post.objects.filter(category='공고게시판').order_by('-created_at')[0:4]
+        qna = Post.objects.filter(category='질의응답게시판').order_by('-created_at')[0:4]
+        apply = Post.objects.filter(category='모집게시판').order_by('-created_at')[0:4]
+        free = Post.objects.filter(category='자유게시판').order_by('-created_at')[0:4] 
+        info = Post.objects.filter(category='정보게시판').order_by('-created_at')[0:4]
 
         return render(request, 'privateCommunity/home.html', {'notice':notice, 'announce':announce, 'qna':qna, 'apply':apply, 'free':free, 'info':info})
 

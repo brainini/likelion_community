@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% load mathfilters %}
 
 {% load static %}
@@ -7,7 +6,7 @@
 
 {% block visit %}
 <br>
-<body>
+<body style="margin-top: 100px;">
 <div id="guestbook">
 	<div style="display: flex; justify-content:center;">
         <form class="row g-3" action="{% url 'guestbook:write' %}" method="post" style="height: 100px; width: 520px;">
