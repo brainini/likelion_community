@@ -25,132 +25,62 @@
           <input class="btn btn-outline-secondary" style="width:53px; font-size:smaller;" value="목록" onClick="history.go(-1)"> 
           </div>
         </div>
-      
       </div>
-      <div class="card" style="width:70%;margin-left: auto; margin-right: auto; padding:3%;">
-        <p id="comment-count" style="font-size : smaller;"><strong>댓글이 {{post.comment_set.all.count}}개 있습니다 </strong><p>
-          {% if user.is_authenticated %}
-          
-            {% csrf_token %}
-            <input id="comment-input" type="text" name="content" />
-            <button class="btn btn-outline-secondary" style="width:53px; font-size:smaller;" onclick="onAddComment({{post.id}})">댓글</button>
-          {% endif %}
-          <div id="comment-list">
-            {% for comment in comments %}
-              <div id = '{{comment.id}}-comment'>
-                <p>{{ comment.author }}: {{ comment.content }} &nbsp; &nbsp;{{ comment.created_at }} &nbsp; 
-                {% comment %} {% if user.is_authenticated %}
-                  <a onclick = "onClickCommentEmotion({{post.id}},{{comment.id}})" id="{{comment.id}}-comment-emotion-button">
-                    {{comment.like_users.count}} Likes
-                  </a>
-                {% endif %} {% endcomment %}
-                {% comment %} {% if request.user == comment.author %}   
-                  <a onclick = "onClickCommentDelete({{post.id}},{{comment.id}})">댓글 삭제</a>
-                {% endif %} {% endcomment %}
-                </p>
-                <div id='{{comment.id}}-recomment-list'>
-                  {% csrf_token %}
-                  <input id='{{comment.id}}-recomment-input' type="text" name="content" />
-                  <button class="btn btn-outline-secondary" style="width:70px; font-size:smaller;" onclick="onAddReComment({{post.id}}, {{comment.id}})">대댓글</button>
-                  {% for recomment in comment.recomment_set.all %}
-                    <p id='{{recomment.id}}-recomment'>
-                      &nbsp; &nbsp;&nbsp; &nbsp; ㄴ> {{ recomment.author }}: {{ recomment.content }} &nbsp; &nbsp;{{ recomment.created_at }} &nbsp; 
-                    </p>
-                  {% endfor %}
-                </div>
-              </div>
 
-            {% endfor %}
-          </div>
-
-          {% comment %} <div id="comment-list">
-            {% for comment in comments %}
-              <p id = '{{comment.id}}-comment'>
-                {{ comment.author }}: {{ comment.content }} &nbsp; &nbsp;{{ comment.created_at }} &nbsp; 
-                {% if user.is_authenticated %}
-                  <a onclick = "onClickCommentEmotion({{post.id}},{{comment.id}})" id="{{comment.id}}-comment-emotion-button">
-                    {{comment.like_users.count}} Likes
-                  </a>
-                {% endif %}
-                {% if request.user == comment.author %}   
-                  <a onclick = "onClickCommentDelete({{post.id}},{{comment.id}})">댓글 삭제</a>
-                {% endif %}
-              </p>
-            {% endfor %}
-          </div> {% endcomment %}
-        </div>
-      {% endblock content %}
-      </div> 
-    </div>
-
-    
-=======
-    <div>
-      <a href="{% url 'privateCommunity:home' %}">home</a>
-      <p>분류: {{post.category}}</p>
-      <h1>제목: {{ post.title }}</h1>
-      <p> 생성 시간: {{post.created_at}} <br> 조회수: {{post.view_count}} </p>
-      {% if request.user == post.author %}   
-        <a href="{% url 'privateCommunity:edit' id=post.id %}">수정</a>
-        <a onclick = "onClickDeleteButtonDetail({{post.id}})">삭제</a>
-      {% endif %}
-      
-      <p style="width: 70%;">{{ post.content | safe}}</p>
-    </div>
-    <div id="post-emotion-container">
+      <div id="post-emotion-container">
       {% if user.is_authenticated %}
-      <div class="post-emotion-icon">
-        <a onclick="onClickPostBestButton({{post.id}})" id="post-best-button">
-          <span class='badge'>{{postBestCount}}</span>
-          <img class="post-emotion-icon" src="/static/privateCommunity/img/best.png" />
-        </a>
-      </div>
-      <div class="post-emotion-icon">
-        <a onclick="onClickPostThanksButton({{post.id}})" id="post-thanks-button">
-          <span class='badge'>{{postThanksCount}}</span>   
-          <img class="post-emotion-icon" src="/static/privateCommunity/img/thanks.png" />
-        </a>
-      </div>
-      <div class="post-emotion-icon">
-        <a onclick="onClickPostSurprisingButton({{post.id}})" id="post-surprising-button">
-          <span class='badge'>{{postSurprisingCount}}</span>
-          <img class="post-emotion-icon" src="/static/privateCommunity/img/surprising.png" />
-        </a>
-      </div>
-      <div class="post-emotion-icon">
-        <a onclick="onClickPostFunnyButton({{post.id}})" id="post-funny-button">
-          <span class='badge'>{{postFunnyCount}}</span>
-          <img class="post-emotion-icon" src="/static/privateCommunity/img/funny.png" />
-        </a>
-      </div>
+        <div class="post-emotion-icon">
+          <a onclick="onClickPostBestButton({{post.id}})" id="post-best-button">
+            <span class='badge'>{{postBestCount}}</span>
+            <img class="post-emotion-icon" src="/static/privateCommunity/img/best.png" />
+          </a>
+        </div>
+        <div class="post-emotion-icon">
+          <a onclick="onClickPostThanksButton({{post.id}})" id="post-thanks-button">
+            <span class='badge'>{{postThanksCount}}</span>   
+            <img class="post-emotion-icon" src="/static/privateCommunity/img/thanks.png" />
+          </a>
+        </div>
+        <div class="post-emotion-icon">
+          <a onclick="onClickPostSurprisingButton({{post.id}})" id="post-surprising-button">
+            <span class='badge'>{{postSurprisingCount}}</span>
+            <img class="post-emotion-icon" src="/static/privateCommunity/img/surprising.png" />
+          </a>
+        </div>
+        <div class="post-emotion-icon">
+          <a onclick="onClickPostFunnyButton({{post.id}})" id="post-funny-button">
+            <span class='badge'>{{postFunnyCount}}</span>
+            <img class="post-emotion-icon" src="/static/privateCommunity/img/funny.png" />
+          </a>
+        </div>
       {% else %}
-      <div class="emotion-icon">
-        <a onclick="" class="post-best-button">
-          <span class='badge'>{{postBestCount}}</span>
-          <img class="emotion-icon" src="/static/privateCommunity/img/best.png" />
-        </a>
-      </div>
-      <div class="emotion-icon">
-        <a onclick="" class="post-thanks-button">
-          <span class='badge'>{{postThanksCount}}</span>
-          <img class="emotion-icon" src="/static/privateCommunity/img/thanks.png" />
-        </a>
-      </div>
-      <div class="emotion-icon">
-        <a onclick="" class="post-surprising-button">
-          <span class='badge'>{{postSurprisingCount}}</span>
-          <img class="emotion-icon" src="/static/privateCommunity/img/surprising.png" />
-        </a>
-      </div>
-      <div class="emotion-icon">
-        <a onclick="" class="post-funny-button">
-          <span class='badge'>{{postFunnyCount}}</span>
-          <img class="emotion-icon" src="/static/privateCommunity/img/funny.png" />
-        </a>
-      </div>
+        <div class="emotion-icon">
+          <a onclick="" class="post-best-button">
+            <span class='badge'>{{postBestCount}}</span>
+            <img class="emotion-icon" src="/static/privateCommunity/img/best.png" />
+          </a>
+        </div>
+        <div class="emotion-icon">
+          <a onclick="" class="post-thanks-button">
+            <span class='badge'>{{postThanksCount}}</span>
+            <img class="emotion-icon" src="/static/privateCommunity/img/thanks.png" />
+          </a>
+        </div>
+        <div class="emotion-icon">
+          <a onclick="" class="post-surprising-button">
+            <span class='badge'>{{postSurprisingCount}}</span>
+            <img class="emotion-icon" src="/static/privateCommunity/img/surprising.png" />
+          </a>
+        </div>
+        <div class="emotion-icon">
+          <a onclick="" class="post-funny-button">
+            <span class='badge'>{{postFunnyCount}}</span>
+            <img class="emotion-icon" src="/static/privateCommunity/img/funny.png" />
+          </a>
+        </div>
       {% endif %}
     </div>
-
+      
     <p id="comment-count"><strong>댓글이 {{commentCount}}개 있습니다 </strong><p>
     {% if user.is_authenticated %}
     
@@ -338,5 +268,7 @@
         </div>
       {% endfor %}
     </div>
-{% endblock content %}
->>>>>>> origin/seungryeol
+  
+  {% endblock content %}
+
+    
