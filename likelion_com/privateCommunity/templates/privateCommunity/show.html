@@ -21,7 +21,7 @@
           <div style="display:flex; justify-content:flex-end;">
           <a class="btn btn-outline-secondary" style="width:53px; font-size:smaller;" href="{% url 'privateCommunity:edit' post.id %}" role="button">수정</a>&nbsp
           <a class="btn btn-outline-secondary" style="width:53px; font-size:smaller;" href="{% url 'privateCommunity:delete' post.id %}" role="button">삭제</a>&nbsp
-          <a class="btn btn-outline-secondary" style="width:53px; font-size:smaller;" href="{% url 'privateCommunity:board_notice' %}" role="button">목록</a>
+          <input class="btn btn-outline-secondary" style="width:53px; font-size:smaller;" value="목록" onClick="history.go(-1)"> 
           </div>
         </div>
       

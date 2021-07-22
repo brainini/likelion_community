@@ -1,12 +1,9 @@
 {% extends 'base.html' %}
 {% block notice %}
 <br>
-<div style="margin-top: 100px;">
-  <a href="{% url 'privateCommunity:new_notice' %}">new post</a>
-</div>
-<div>
-    <table class="table table-sm table-hover" style="width:70%;margin-left: auto;
-    margin-right: auto;">
+
+<div style="margin-top:9%">
+    <table class="table table-sm table-hover" style="width:70%;margin-left: auto; margin-right: auto; margin-top:7%;">
         <thead style="border-top: 1px solid #dee2e6;">
             <tr class="text-center">
                 <th style="font-weight: bold; font-size: 14px;">말머리</th>
@@ -49,11 +46,11 @@
 <ul class="pagination justify-content-center">
     <!-- 이전페이지 -->
     {% if board_notice.has_previous %}
-    <li class="page-item">
+    <li class="page-item" style="font-size:smaller;">
         <a class="page-link" href="?page={{ board_notice.previous_page_number }}">이전</a>
     </li>
     {% else %}
-    <li class="page-item disabled">
+    <li class="page-item disabled" style="font-size:smaller;">
         <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
     </li>
     {% endif %}
@@ -62,24 +59,28 @@
     {% for page_number in board_notice.paginator.page_range %}
     {% if page_number >= board_notice.number|add:-5 and page_number <= board_notice.number|add:5 %}
         {% if page_number == board_notice.number %}
-        <li class="page-item active" aria-current="page">
+        <li class="page-item active" aria-current="page" style="font-size:smaller;">
             <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
         </li>
         {% else %}
-        <li class="page-item">
+        <li class="page-item" style="font-size:smaller;">
             <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
         </li>
         {% endif %}
     {% endif %}
     {% endfor %}
     {% if board_notice.has_next %}
-    <li class="page-item">
+    <li class="page-item" style="font-size:smaller;">
         <a class="page-link" href="?page={{ board_notice.next_page_number }}">다음</a>
     </li>
     {% else %}
-    <li class="page-item disabled">
+    <li class="page-item disabled" style="font-size:smaller;">
         <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
     </li>
     {% endif %}
 </ul>
+ <span style="display:flex; justify-content: flex-end; margin-right: 15%;"> 
+  <a class="btn btn-outline-secondary" style="width:100px; font-size:smaller; " href="{% url 'privateCommunity:new_notice' %}" role="button">글 작성하기</a>
+</span> 
+  <br>
 {% endblock notice %}
