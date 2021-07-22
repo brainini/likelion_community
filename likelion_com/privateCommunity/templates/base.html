@@ -4,9 +4,10 @@
     <meta charset='utf-8'>
     <title>SnuLion Community Begins</title>
     {% load static %}
-
     {% load sass_tags %}
     <link rel="stylesheet" type="text/css" href="{% sass_src 'privateCommunity/scss/base.scss' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'privateCommunity/css/bootstrap.min.css' %}">
+ 
     {% block style %}
     {% endblock style %}
     <script type="module" src="{% static 'privateCommunity/js/base.js' %}"></script>
@@ -30,27 +31,48 @@
       </div>
     </header>
     <main>
-        <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Snulion Community</span>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_notice' %}">공지게시판</a>
-            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_announce' %}">공고게시판</a>
-            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_qna' %}">질의응답게시판</a>
-            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_apply' %}">모집게시판</a>
-            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_free' %}">자유게시판</a>
-            <a class="mdl-navigation__link" href="{% url 'privateCommunity:board_info' %}">정보게시판</a>
-            <a class="mdl-navigation__link" href="{% url 'guestbook:list' %}">방명록</a>
+        <div class="mdl-layout__drawer">        
+          <span class="logo">
+          <a href="{% url 'privateCommunity:home' %}">
+            <img class="icon" src="{% static 'privateCommunity/img/mainlogo3.svg' %}" width="250px" alt="snulioncommunity logo">
+          </a>
+          </span>
+
+          <nav class="mdl-navigation" style="text-align: center;">
+              <a href="{% url 'privateCommunity:board_notice' %}">공지</a>
+              <a href="{% url 'privateCommunity:board_announce' %}">공고</a>
+              <a href="{% url 'privateCommunity:board_qna' %}">QnA</a>
+              <a href="{% url 'privateCommunity:board_apply' %}">모집</a>
+              <a href="{% url 'privateCommunity:board_free' %}">자유</a>
+              <a href="{% url 'privateCommunity:board_info' %}">정보</a>
+              <a href="{% url 'guestbook:list' %}">방명록</a>
         </nav>
         </div>
-
-        <h1 class="post-main-title">
-
-            <a href="/community/new/">
-                글 작성하기
-            </a>
-        </h1>
+        
         {% block content %}
         {% endblock content %}
+
+        {% block notice %}
+        {% endblock notice %}
+
+        {% block announce %}
+        {% endblock announce %}
+
+        {% block apply %}
+        {% endblock apply %}
+
+        {% block free %}
+        {% endblock free %}
+
+        {% block info %}
+        {% endblock info %}
+
+        {% block qna %}
+        {% endblock qna %}
+
+        {% block visit %}
+        {% endblock visit %}
+
     </main>
     <footer>
         <div class="copyright-container">
@@ -58,5 +80,6 @@
             <span id="copyright-text" class="copyright">SNU LIKELION © 2021</span>
         </div>
     </footer>
+    
   </body>
 </html>
