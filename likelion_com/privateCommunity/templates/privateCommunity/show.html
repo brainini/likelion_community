@@ -6,7 +6,7 @@
       <a href="{% url 'privateCommunity:home' %}">home</a>
       <p>{{post.category}}</p>
       <h1>제목: {{ post.title }}</h1>
-      <p> 생성 시간: {{post.created_at}} <br> 조회수: {{post.view_count}} </p>
+      <p> 생성 시간: {{post.created_at}} <br> 조회수: {{post.view_count}} <br> 작성자: {{post.author}} <br> </p>
       <a href="{% url 'privateCommunity:edit' post.id %}">수정  </a>
       <a href="{% url 'privateCommunity:delete' post.id %}">삭제</a>
       <p style="width: 70%;">{{ post.content | safe}}</p>

@@ -15,13 +15,19 @@ def home(request):
         title = request.POST['title']
         category = request.POST['category']
         content = request.POST['content']
-        post = Post.objects.create(title=title, category=category, content=content, view_count = 0)
+        post = Post.objects.create(author=request.user, title=title, category=category, content=content, view_count = 0)
         comments = post.comment_set.order_by('created_at')
         emotions = post.emotion_set
         return render(request, 'privateCommunity/show.html', {'post':post, 'comments':comments, 'emotions':emotions})
     else:
-        posts = Post.objects.all()
-        return render(request, 'privateCommunity/home.html', {'posts': posts})
+        notice = Post.objects.filter(category='공지게시판').order_by('-created_at')[0:3]
+        announce = Post.objects.filter(category='공고게시판').order_by('-created_at')[0:3]
+        qna = Post.objects.filter(category='질의응답게시판').order_by('-created_at')[0:3]
+        apply = Post.objects.filter(category='모집게시판').order_by('-created_at')[0:3]
+        free = Post.objects.filter(category='자유게시판').order_by('-created_at')[0:3] 
+        info = Post.objects.filter(category='정보게시판').order_by('-created_at')[0:3]
+
+        return render(request, 'privateCommunity/home.html', {'notice':notice, 'announce':announce, 'qna':qna, 'apply':apply, 'free':free, 'info':info})
 
 
 def index(request):
@@ -54,7 +60,7 @@ def show(request, id):
         recomments = comment.recomment_set.order_by('created_at')
         comment
     emotions = post.emotion_set
-    return render(request, 'privateCommunity/show.html', {'post':post, 'comments':comments, 'emotions':emotions})
+    return render(request, 'privateCommunity/show.html', {'post':post, 'author':post.author, 'comments':comments, 'emotions':emotions})
 
 
 def delete(request, id):

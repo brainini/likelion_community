@@ -18,3 +18,13 @@ footer {
 		}
 	}
 }
+
+.home-header{
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    position: fixed;
+    z-index: 100 !important;
+}
+
+$offcanvas-horizontal-width: 100px;
