@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+
+{% load static %}
+{% load sass_tags %}
+
+{% block visit %}
+<br>
+<body style="margin-top: 100px;">
+<div id="guestbook">
+	<div style="display: flex; justify-content:center;">
+        <form class="row g-3" action="{% url 'guestbook:write' %}" method="post" style="height: 100px; width: 520px;">
+        {% csrf_token %}
+        <h6 class="col-md-6" >
+            <label for="inputguestbook" class="form-label">  ✿ 방명록 남기기 ✿ </label>
+			<div style="display: inline-flex; align-items:center;">
+            <input type="text" class="form-control" name="content" id="content" placeholder=" 소중한 흔적을 남겨주세용 ꈍ◡ꈍ " style="width:450px;  font-size : smaller">
+			<button type="submit" class="btn btn-outline-primary" style="width:55px; font-size : smaller;" > 확인 </button>
+			</div>
+		</h6>
+        </form>
+    </div>
+	<ul style='display: flex; flex-wrap: wrap; justify-content:center; padding: 30px;'>	
+	{% for guestbook in guestbooklist %}
+	
+		<div class="card text-dark bg-light mb-3" style= 'width:28%; padding:5px;'>
+			<div class="card-header"> 
+				<nav style="font-weight: bold; font-size: 16px; ">
+				[{{ forloop.revcounter }}]
+				{{ guestbook.author }}님
+				</nav>
+				<nav style="font-size: 14px; display: flex; align-itmes: flex-end;">
+				{{ guestbook.created_at|date:'Y-m-d H:i' }}
+				{% if request.user == guestbook.author %}
+					&nbsp;&nbsp;<a href="{% url 'guestbook:delete' guestbook.id %}"> 삭제</a>
+				{% endif %}
+				</nav>
+			</div>
+			<div class="card-body">
+				<h6 class="card-text" style=" font-size : smaller; padding:1px;">
+				{{ guestbook.content|linebreaks }}
+				</h6>
+			</div>
+			
+			<br>
+		</div>
+	{% endfor %}
+	<br>	
+	</ul>
+
+<script type="text/javascript" src="js/bootstrap.js"></script>
+</div>
+{% endblock visit %}
+
+</body>

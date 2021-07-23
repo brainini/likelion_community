@@ -1,0 +1,1 @@
+web: gunicorn likelion_com.wsgi --log-file -
