@@ -30,4 +30,5 @@ six==1.16.0
 soupsieve==2.2.1
 sqlparse==0.4.1
 urllib3==1.26.6
+grpcio==1.26.0rc1
 -e git://github.com/hensing/PyDDE.git#egg=PyDDE
