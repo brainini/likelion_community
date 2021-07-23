@@ -11,25 +11,24 @@
 	<div style="display: flex; justify-content:center;">
         <form class="row g-3" action="{% url 'guestbook:write' %}" method="post" style="height: 100px; width: 520px;">
         {% csrf_token %}
-        <h6 class="col-md-6" >
-            <label for="inputguestbook" class="form-label">  ✿ 방명록 남기기 ✿ </label>
-			<div style="display: inline-flex; align-items:center;">
+        <h5 class="col-md-6" style="font-family: 'Gamja Flower'">
+            <label for="inputguestbook" class="form-label" >  ✿ 방명록 남기기 ✿ </label>
+			<div style="display: inline-flex; align-items:center; ">
             <input type="text" class="form-control" name="content" id="content" placeholder=" 소중한 흔적을 남겨주세용 ꈍ◡ꈍ " style="width:450px;  font-size : smaller">
 			<button type="submit" class="btn btn-outline-primary" style="width:55px; font-size : smaller;" > 확인 </button>
 			</div>
-		</h6>
+		</h5>
         </form>
     </div>
 	<ul style='display: flex; flex-wrap: wrap; justify-content:center; padding: 30px;'>	
 	{% for guestbook in guestbooklist %}
 	
-		<div class="card text-dark bg-light mb-3" style= 'width:28%; padding:5px;'>
+		<div class="card text-dark bg-light mb-3" style= "font-family: 'Noto Sans KR', sans-serif; width:28%; padding:5px;">
 			<div class="card-header"> 
-				<nav style="font-weight: bold; font-size: 16px; ">
-				[{{ forloop.revcounter }}]
+				<nav style="font-size: 18px;">
 				{{ guestbook.author }}님
 				</nav>
-				<nav style="font-size: 14px; display: flex; align-itmes: flex-end;">
+				<nav style="font-size: 12px; display: flex; align-itmes: flex-end;">
 				{{ guestbook.created_at|date:'Y-m-d H:i' }}
 				{% if request.user == guestbook.author %}
 					&nbsp;&nbsp;<a href="{% url 'guestbook:delete' guestbook.id %}"> 삭제</a>
@@ -37,7 +36,7 @@
 				</nav>
 			</div>
 			<div class="card-body">
-				<h6 class="card-text" style=" font-size : smaller; padding:1px;">
+				<h6 class="card-text" style="font-family: 'Gamja Flower'; padding:1px;">
 				{{ guestbook.content|linebreaks }}
 				</h6>
 			</div>

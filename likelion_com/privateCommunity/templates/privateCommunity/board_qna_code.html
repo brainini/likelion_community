@@ -53,9 +53,9 @@
 </div>
 <ul class="pagination justify-content-center">
     <!-- 이전페이지 -->
-    {% if board_notice.has_previous %}
+    {% if board_qna_code.has_previous %}
     <li class="page-item" style="font-size:smaller;">
-        <a class="page-link" href="?page={{ board_notice.previous_page_number }}">이전</a>
+        <a class="page-link" href="?page={{ board_qna_code.previous_page_number }}">이전</a>
     </li>
     {% else %}
     <li class="page-item disabled" style="font-size:smaller;">
@@ -64,9 +64,9 @@
     {% endif %}
 
     <!-- 페이지리스트 -->
-    {% for page_number in board_notice.paginator.page_range %}
-    {% if page_number >= board_notice.number|add:-5 and page_number <= board_notice.number|add:5 %}
-        {% if page_number == board_notice.number %}
+    {% for page_number in board_qna_code.paginator.page_range %}
+    {% if page_number >= board_qna_code.number|add:-5 and page_number <= board_qna_code.number|add:5 %}
+        {% if page_number == board_qna_code.number %}
         <li class="page-item active" aria-current="page" style="font-size:smaller;">
             <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
         </li>
@@ -77,9 +77,9 @@
         {% endif %}
     {% endif %}
     {% endfor %}
-    {% if board_notice.has_next %}
+    {% if board_qna_code.has_next %}
     <li class="page-item" style="font-size:smaller;">
-        <a class="page-link" href="?page={{ board_notice.next_page_number }}">다음</a>
+        <a class="page-link" href="?page={{ board_qna_code.next_page_number }}">다음</a>
     </li>
     {% else %}
     <li class="page-item disabled" style="font-size:smaller;">
@@ -88,8 +88,10 @@
     {% endif %}
 </ul>
  <span style="display:flex; justify-content: flex-end; margin-right: 15%;"> 
-  <a class="btn btn-outline-secondary" style="width:100px; font-size:smaller; " href="{% url 'privateCommunity:new_notice' %}" role="button">글 작성하기</a>&nbsp
-  <input class="btn btn-outline-secondary" style="width:53px; font-size:smaller;" value="목록" onClick="history.go(-1)"> 
+ {% if user.is_authenticated %} 
+  <a class="btn btn-outline-secondary" style="width:100px; font-size:smaller; " href="{% url 'privateCommunity:new_qna' %}" role="button">글 작성하기</a>&nbsp
+  {%endif%} 
+  <a class="btn btn-outline-secondary" style="width:80px; font-size:smaller; " href="{% url 'privateCommunity:board_qna' %}" role="button">전체</a> 
 </span> 
   <br>
 {% endblock qna %}

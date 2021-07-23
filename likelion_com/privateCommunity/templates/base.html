@@ -11,6 +11,15 @@
     <link rel="stylesheet" type="text/css" href="{% sass_src 'privateCommunity/scss/headers.css' %}">
     <link rel="stylesheet" type="text/css" href="{% sass_src 'privateCommunity/scss/blog.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'privateCommunity/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'privateCommunity/css/style.css' %}">
+    
+    <style>
+    @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+    @import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+    @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gamja+Flower&family=Noto+Sans+KR&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+    </style>
  
     {% block style %}
     {% endblock style %}
@@ -19,6 +28,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 	  <script src="{% static 'privateCommunity/js/base2.js' %}"></script>
     <script src="{% static 'privateCommunity/js/show.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     {% block js %}
     {% endblock js %}
   </head>
@@ -52,8 +62,8 @@
         <div class= "position-fixed fixed-top bg-white" id="main-container">
             <header class="d-flex flex-nowrap align-items-center justify-content-around justify-content-md-between py-3 ms-3 me-3 border-bottom">
 
-            <a class="btn btn-primary me-3" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                =
+            <a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                <img class="barlion" width="45px" style="padding:5%;" src="{% static 'privateCommunity/img/barlion.jpg' %}">
             </a>
 
             <div style="width: 300px;" class="offcanvas offcanvas-start" offcanvas-horizontal-width="20px" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -75,7 +85,9 @@
                             <div style="padding: 0 10px; margin-bottom: 5px; border-right: 1px solid white;">{{ user.get_username }}님은 멋쟁이 사자!!!</div>
                             <div style="padding: 0 10px; margin-bottom: 5px; border-right: 1px solid white;">학교: {{ user.profile.college }}</div>
                             <div style="padding: 0 10px; margin-bottom: 5px; border-right: 1px solid white">전공: {{ user.profile.major }}</div>
-                        {% endif %}
+                        
+                        <a class="btn btn-secondary btn-sm" style="width:100px; font-size:smaller; font-family:'Noto Sans KR', sans-serif; background:grey;" href="{% url 'privateCommunity:new' %}" role="button">글 작성하기</a>
+                        {%endif%}
                     </div>
 
                     <div class="dropdown mt-3">
@@ -92,7 +104,7 @@
             </div>
 
             <a href="/" class="d-flex align-items-center col-md-2 mb-1 me-5 mb-md-0">
-                <img class="mainlogo" width="250px" src="{% static 'privateCommunity/img/mainlogo2.png' %}">
+                <img class="mainlogo" width="230px" style="margin-left:8%;" src="{% static 'privateCommunity/img/bluelogo 1.jpg' %}">
             </a>
             
             <ul class="d-flex flex-nowrap nav col-13 ms-5 col-md-auto mb-2 justify-content-center mb-md-0">

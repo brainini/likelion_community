@@ -1,20 +1,33 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-<main class="container">
-  <div class="p-4 p-md-5 pt-5 mb-4 text-white rounded bg-warning" style="margin-top: 120px;">
-    <div class="col-md-6 px-0">
+
+
+
+  <main class="container">
+  <div style="margin-top: 120px;">
+      <a class="mouse-scroll" style="position:relative;" href="#wow"> 
+                            <span class="mouse">
+                                <span class="mouse-movement"></span>
+                            </span>
+                            <span class="mouse-message fadeIn">Explore</span> 
+                        </a>
+    <img class="home_lion" width=100% src="{% static 'privateCommunity/img/home_lion.jpg' %}">
+    <div class="col-md-6 px-0" style="position:relative;">
       <h1 class="display-4 fst-italic">Welcome to SNU Like Lion Community</h1>
-      <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
-      <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+      <p class="lead my-3" id="wow">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
     </div>
+
   </div>
+
 
   <div class="row g-5">
     <div class="col-md-8">
       <div class="row p-3">
         <div class="col-md-6 d-flex flex-column border border-info rounded">
-          <h5 class= "border-bottom" style="width: 100%;">
+          <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+          
+          <h5 class= "border-bottom" style="width: 100%; font-family: 'Noto Sans KR', sans-serif;">
             <a href="{% url 'privateCommunity:board_notice' %}">공지게시판</a>
           </h5>
           {% for post in notice %}
@@ -24,6 +37,7 @@
                 <span style="width: 10%;">{{ post.view_count }}</span>
             </a>
           {% endfor %}
+          </div>
         </div>
         <div class="col-md-6 d-flex flex-column border border-info rounded">
           <h5 class= "border-bottom" style="width: 100%;">

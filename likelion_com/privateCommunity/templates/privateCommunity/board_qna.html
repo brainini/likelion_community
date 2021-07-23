@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% block qna %}
 <br>
-<div style="margin-top:9%">
+<div style="margin-top:8%">
+<h3 class="board-title" >질의응답게시판</h3>
 <a class="btn btn-light" style="width:93px; font-size:smaller; margin-left:15%" href="{% url 'privateCommunity:board_qna_code' %}" role="button">#코딩/개발</a>
 <a class="btn btn-light" style="width:93px; font-size:smaller;" href="{% url 'privateCommunity:board_qna_free' %}" role="button">#자유</a>
 </div>
 <br>
 <div>
-    <table class="table table-sm table-hover" style="width:70%;margin-left: auto;
+    <table class="table table-sm table-hover" style="font-family: 'Noto Sans KR', sans-serif; width:70%;margin-left: auto;
     margin-right: auto;">
         <thead style="border-top: 1px solid #dee2e6;">
             <tr class="text-center">
@@ -54,9 +55,9 @@
 </div>
 <ul class="pagination justify-content-center">
     <!-- 이전페이지 -->
-    {% if board_notice.has_previous %}
+    {% if board_qna.has_previous %}
     <li class="page-item" style="font-size:smaller;">
-        <a class="page-link" href="?page={{ board_notice.previous_page_number }}">이전</a>
+        <a class="page-link" href="?page={{ board_qna.previous_page_number }}">이전</a>
     </li>
     {% else %}
     <li class="page-item disabled" style="font-size:smaller;">
@@ -65,9 +66,9 @@
     {% endif %}
 
     <!-- 페이지리스트 -->
-    {% for page_number in board_notice.paginator.page_range %}
-    {% if page_number >= board_notice.number|add:-5 and page_number <= board_notice.number|add:5 %}
-        {% if page_number == board_notice.number %}
+    {% for page_number in board_qna.paginator.page_range %}
+    {% if page_number >= board_qna.number|add:-5 and page_number <= board_qna.number|add:5 %}
+        {% if page_number == board_qna.number %}
         <li class="page-item active" aria-current="page" style="font-size:smaller;">
             <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
         </li>
@@ -78,9 +79,9 @@
         {% endif %}
     {% endif %}
     {% endfor %}
-    {% if board_notice.has_next %}
+    {% if board_qna.has_next %}
     <li class="page-item" style="font-size:smaller;">
-        <a class="page-link" href="?page={{ board_notice.next_page_number }}">다음</a>
+        <a class="page-link" href="?page={{ board_qna.next_page_number }}">다음</a>
     </li>
     {% else %}
     <li class="page-item disabled" style="font-size:smaller;">
@@ -88,9 +89,11 @@
     </li>
     {% endif %}
 </ul>
+{% if user.is_authenticated %} 
  <span style="display:flex; justify-content: flex-end; margin-right: 15%;"> 
-  <a class="btn btn-outline-secondary" style="width:100px; font-size:smaller; " href="{% url 'privateCommunity:new_notice' %}" role="button">글 작성하기</a>
+  <a class="btn btn-outline-secondary" style="width:100px; font-size:smaller; " href="{% url 'privateCommunity:new_qna' %}" role="button">글 작성하기</a>
 </span> 
+{%endif%}
   <br>
 
 {% endblock qna %}

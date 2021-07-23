@@ -13,11 +13,12 @@
           <br>
           <p style="width: 70%;">{{ post.content | safe}}</p>
           <br>
+          {% if request.user == post.author %}
           <div style="display:flex; justify-content:flex-end;">
           <a class="btn btn-outline-secondary" style="width:53px; font-size:smaller;" href="{% url 'privateCommunity:edit' post.id %}" role="button">수정</a>&nbsp
-          <a class="btn btn-outline-secondary" style="width:53px; font-size:smaller;" href="{% url 'privateCommunity:delete' post.id %}" role="button">삭제</a>&nbsp
-          <input class="btn btn-outline-secondary" style="width:53px; font-size:smaller;" value="목록" onClick="history.go(-1)"> 
+          <a class="btn btn-outline-secondary" style="width:53px; font-size:smaller;" href="{% url 'privateCommunity:delete' post.id %}" role="button">삭제</a>&nbsp 
           </div>
+          {% endif %}
         </div>
       </div>
 
